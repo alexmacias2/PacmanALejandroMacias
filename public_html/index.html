@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>PACMAN</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -51,18 +51,18 @@ and open the template in the editor.
             var fantasma2 = new Array(3);
             var fantasma3 = new Array(3);
             var jugador = new Array(4);
-            fantasma1 = [0, 0, ""];
-            fantasma2 = [0, 0, ""];
-            fantasma3 = [0, 0, ""];
-            jugador = [0, 0, "", ""];
-            UbicarPersonajes();
+            fantasma1 = UbicarFantasmas();
+            fantasma2 = UbicarFantasmas();
+            fantasma3 = UbicarFantasmas();
+            jugador = UbicarJugador();
             for (var i = 0; i < arrayMapa.length; i++) {
                 for (var j = 0; j < arrayMapa[i].length; j++) {
                     if (arrayMapa[i][j] == ' ') {
                         document.write("#" + " ");
-                        arrayMapa[fantasma1[0]][fantasma1[1]] = "f" + " ";
-                        arrayMapa[fantasma2[0]][fantasma2[1]] = "f" + " ";
-                        arrayMapa[fantasma3[0]][fantasma3[1]] = "f" + " ";
+                        arrayMapa[fantasma1[0]][fantasma1[1]] = "F" + " ";
+                        arrayMapa[fantasma2[0]][fantasma2[1]] = "F" + " ";
+                        arrayMapa[fantasma3[0]][fantasma3[1]] = "F" + " ";
+                        arrayMapa[jugador[0]][jugador[1]] = "J" + " ";
                     } else {
                         document.write(arrayMapa[i][j] + " ");
                     }
@@ -70,17 +70,28 @@ and open the template in the editor.
                 document.write("<br>")
             }
 
-            function UbicarPersonajes() {
-                var x=0;
-                var y=0;
-                do{
-                     x = Math.floor(Math.random() * (29 - 0)) + 0;
+            function UbicarFantasmas() {
+                var x = 0;
+                var y = 0;
+                var fantasma = new Array(3);
+                do {
+                    x = Math.floor(Math.random() * (29 - 0)) + 0;
                     y = Math.floor(Math.random() * (29 - 0)) + 0;
-                }while(arrayMapa[x][y]=='x');
-                   
-                
-              fantasma1=[x,y,""];
-                
+                } while (arrayMapa[x][y] != " ");
+                fantasma = [x, y, ""];
+                return fantasma;
+            }
+
+            function UbicarJugador() {
+                var x = 0;
+                var y = 0;
+                var jugador = new Array(4);
+                do {
+                    x = Math.floor(Math.random() * (29 - 0)) + 0;
+                    y = Math.floor(Math.random() * (29 - 0)) + 0;
+                } while (arrayMapa[x][y] != " ");
+                jugador = [x, y, "", ""];
+                return jugador;
             }
 
 
