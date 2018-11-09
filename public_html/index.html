@@ -46,6 +46,7 @@ and open the template in the editor.
                 ["x", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "x"],
                 ["x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"]];
 
+
             var fantasma1 = new Array(3);
             var fantasma2 = new Array(3);
             var fantasma3 = new Array(3);
@@ -58,9 +59,9 @@ and open the template in the editor.
                 for (var j = 0; j < arrayMapa[i].length; j++) {
                     if (arrayMapa[i][j] == ' ') {
                         document.write("#" + " ");
-                        arrayMapa[fantasma1[0]][fantasma1[1]] = "1" + " ";
-                        arrayMapa[fantasma2[0]][fantasma2[1]] = "2" + " ";
-                        arrayMapa[fantasma3[0]][fantasma3[1]] = "3" + " ";
+                        arrayMapa[fantasma1[0]][fantasma1[1]] = "P" + " ";
+                        arrayMapa[fantasma2[0]][fantasma2[1]] = "S" + " ";
+                        arrayMapa[fantasma3[0]][fantasma3[1]] = "T" + " ";
                         arrayMapa[jugador[0]][jugador[1]] = "J" + " ";
                     } else {
                         document.write(arrayMapa[i][j] + " ");
@@ -68,72 +69,81 @@ and open the template in the editor.
                 }
                 document.write("<br>")
             }
-            document.write("Fantasma 1:" + fantasma1[2]+"<br>");
-            document.write("Fantasma 2:" + fantasma2[2]+"<br>");
-            document.write("Fantasma 3:" + fantasma3[2]+"<br>");
-            document.write("Jugador :" + fantasma3[2]+"<br>");
-            
-            function UbicarFantasmas() { //1:izquierda 2:abajo 3:derecha 4:arriba
-                var x = 0;//vertical
-                var y = 0;//hprizontal
+            document.write("<br>");
+            document.write("Fantasma 1:" + fantasma1[2] + "<br>");
+            document.write("Fantasma 2: " + fantasma2[2] + "<br>");
+            document.write("Fantasma 3:" + fantasma3[2] + "<br>");
+            document.write("Jugador:"+ jugador[2]);
+
+            function UbicarFantasmas() {
+                var vertical = 0;
+                var horizontal = 0;
                 var fantasma = new Array(3);
                 do {
-                    x =
-                            y = Math.floor(Math.random() * 29) + 0;
-                } while (arrayMapa[x][y] !== " ");
-                var i = x;//vertical
-                var j = y;//horizontal
+                    vertical = Math.floor(Math.random() * (29 - 0)) + 0;
+                    horizontal = Math.floor(Math.random() * (29 - 0)) + 0;
+                } while (arrayMapa[vertical][horizontal] != " ");
+                fantasma = [vertical, horizontal, ""];
+                var dirvertical = vertical;
+                var dirhorizontal = horizontal;
                 do {
-                    direccion = Math.floor(Math.random() * 4) + 1;
-                    switch (direccion) {
-                        case 1:
-                            j -= 1;
-                            break;
-                        case 2:
-                            i -= 1;
-                            break;
-                        case 3:
-                            j += 1;
-                            break;
-                        case 4:
-                            i += 1;
-                            break;
+                    dirvertical = vertical;
+                    dirhorizontal = horizontal;
+                    var direccion = Math.floor(Math.random() * 4) + 1;
+                    if (direccion == 1) {
+                        dirhorizontal -= 1;
                     }
-                } while (arrayMapa[i][j] !== " ");
-                fantasma = [x, y, direccion];
+                    if (direccion == 2) {
+                        dirvertical -= 1;
+                    }
+                    if (direccion == 3) {
+                        dirhorizontal += 1;
+                    }
+                    if (direccion == 4) {
+                        dirvertical += 1;
+                    }
+                } while (arrayMapa[dirvertical][dirhorizontal] != " ");
+                fantasma = [vertical, horizontal, direccion];
                 return fantasma;
             }
 
-            function UbicarJugador() { //1:izquierda 2:abajo 3:derecha 4:arriba
-                var x = 0;
-                var y = 0;
+            function UbicarJugador() {
+                var vertical = 0;
+                var horizontal = 0;
                 var jugador = new Array(4);
                 do {
-                    x = Math.floor(Math.random() * (29 - 0)) + 0;
-                    y = Math.floor(Math.random() * (29 - 0)) + 0;
-                } while (arrayMapa[x][y] !== " ");
-                var i = x;
-                var j = y;
+                    vertical = Math.floor(Math.random() * (29 - 0)) + 0;
+                    horizontal = Math.floor(Math.random() * (29 - 0)) + 0;
+                } while (arrayMapa[vertical][horizontal] != " ");
+                jugador = [vertical, horizontal, "", ""];
+                var dirvertical = vertical;
+                var dirhorizontal = horizontal;
                 do {
-                    direccion = Math.floor(Math.random() * 4) + 1;
-                    switch (direccion) {
-                        case 1:
-                            j -= 1;
-                            break;
-                        case 2:
-                            i -= 1;
-                            break;
-                        case 3:
-                            j += 1;
-                            break;
-                        case 4:
-                            i += 1;
-                            break;
+                    dirvertical = vertical;
+                    dirhorizontal = horizontal;
+                    var direccion = Math.floor(Math.random() * 4) + 1;
+                    if (direccion == 1) {
+                        dirhorizontal -= 1;
                     }
-                } while (arrayMapa[i][j] !== " ");
-                jugador = [x, y, direccion, ""];
+                    if (direccion == 2) {
+                        dirvertical -= 1;
+                    }
+                    if (direccion == 3) {
+                        dirhorizontal += 1;
+                    }
+                    if (direccion == 4) {
+                        dirvertical += 1;
+                    }
+                } while (arrayMapa[dirvertical][dirhorizontal] != " ");
+                jugador = [vertical,horizontal,direccion," "];
                 return jugador;
             }
+
+
+
+
+
+
         </script>
     </body>
 </html>
